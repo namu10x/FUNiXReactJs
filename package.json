@@ -1,0 +1,24 @@
+{
+  "name": "git-test",
+  "version": "1.0.0",
+  "description": "This is a test directory to learn Git and Node",
+  "main": "index.html",
+  "scripts": {
+    "start":"npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite":"lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/namu10x/FUNiXReactJs.git"
+  },
+  "author": "namphamctn1303",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/namu10x/FUNiXReactJs/issues"
+  },
+  "homepage": "https://github.com/namu10x/FUNiXReactJs#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
