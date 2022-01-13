@@ -14,7 +14,7 @@ class App extends Component {
       // <Provider store={store}>
       // <BrowserRouter>
       <div>
-        <StaffListComponent staffs={STAFFS} />
+        <StaffListComponent staffs={STAFFS} /> //truyen du lieu tu tep staff qua props
       </div>
       // </BrowserRouter>
       // </Provider>
