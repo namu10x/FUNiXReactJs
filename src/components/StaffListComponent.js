@@ -31,7 +31,8 @@ class StaffListComponent extends Component {
                         })
                     }
                 </div>
-                <StaffDetailsComponent staff={this.state.selectedStaff} /> //hien thi chi tiet thong tin nhan vien duoc click
+                {/* //hien thi chi tiet thong tin nhan vien duoc click */}
+                <StaffDetailsComponent staff={this.state.selectedStaff} /> 
 
             </div>
         );
