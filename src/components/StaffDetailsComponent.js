@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import dateFormat from 'dateformat';
+import dateFormat from 'dateformat'; // format du lieu ngay thang nam
 class StaffDetailsComponent extends Component {
     renderStaff(staff) {
         if (staff != null) return (
