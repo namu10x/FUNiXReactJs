@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import dateFormat from 'dateformat'; // format du lieu ngay thang nam
 class StaffDetailsComponent extends Component {
+    // ham render ra thong tin nhan vien duoc click
     renderStaff(staff) {
         if (staff != null) return (
             <div className='row'>
