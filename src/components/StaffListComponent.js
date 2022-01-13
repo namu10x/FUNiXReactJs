@@ -30,7 +30,7 @@ class StaffListComponent extends Component {
                         })
                     }
                 </div>
-                <StaffDetailsComponent staff={this.state.selectedStaff} />
+                <StaffDetailsComponent staff={this.state.selectedStaff} /> //hien thi chi tiet thong tin nhan vien duoc click
 
             </div>
         );
