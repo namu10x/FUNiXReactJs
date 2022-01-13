@@ -8,8 +8,9 @@ class StaffListComponent extends Component {
             selectedStaff: null
         }
     }
+   
     onStaffSelect(staff) {
-        this.setState({ selectedStaff: staff });
+        this.setState({ selectedStaff: staff });  // luu lai thong tin cua nhan vien duocclick
     }
 
     render() {
