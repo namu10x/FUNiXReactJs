@@ -148,13 +148,9 @@ ul li{
 }
 ul li .title{
     color: #4f4f4f;
-    /* float: left; */
     font-weight: 500;
-    margin-right: 10px;
-    /* width:50%; */
-    
+    margin-right: 10px;    
 }
 ul li .text{
     color: #8e8e8e;
-    /* display: block; */
 }
