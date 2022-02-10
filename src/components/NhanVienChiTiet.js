@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 import dateFormat from "dateformat";
 import { STAFFS } from "../shared/staffs";
+// --------presentation component--------
 function HienThiAnh(props) {
   return (
     <div className="col-12 col-md-4 col-lg-3 profile-view-img">
@@ -48,7 +49,7 @@ function HienThiThongTin(props) {
     </div>
   );
 }
-
+// --------container component--------
 class NhanVienChiTiet extends Component {
   render() {
     let a = STAFFS[parseInt(this.props.match.params.id)];
