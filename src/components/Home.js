@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { STAFFS } from "../shared/staffs";
 import { Link } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
-//--------functionalComponent//--------
+//--------functionalComponent--------
 function NhanVien(props) {
   return (
     <div className="col-6 col-md-4 col-lg-2 ">
