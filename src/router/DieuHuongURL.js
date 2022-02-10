@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BangLuong from "../components/BangLuong";
 import Home from "../components/Home";
-import NhanVien from "../components/NhanVien";
 import NhanVienChiTiet from "../components/NhanVienChiTiet";
 import PhongBan from "../components/PhongBan";
 import { STAFFS } from "../shared/staffs";
