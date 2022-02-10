@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 import { STAFFS } from "../shared/staffs";
-function HienThiPhongBan(props) {
+// --------Salary cal--------
+function TinhLuong(salaryScale, overTime) {
+  const basicSalary = 3000000;
+  const overTimeSalary = 200000;
+  return (
+    salaryScale * basicSalary +
+    overTime * overTimeSalary
+  ).toLocaleString();
+}
+// --------presentation component--------
+function HienThiBangLuong(props) {
   return (
     <div className="col-12 col-md-6 col-lg-4">
       <div className=" card-view">
@@ -8,23 +18,23 @@ function HienThiPhongBan(props) {
         <p>Mã nhân viên: {props.id}</p>
         <p>Hệ số lương: {props.salaryScale}</p>
         <p>Số giờ làm thêm: {props.overTime}</p>
-        <p>Lương: {(props.overTime*200000+3000000*props.salaryScale).toLocaleString()}</p>
+        <p>Lương: {TinhLuong(props.salaryScale, props.overTime)}</p>
       </div>
     </div>
   );
 }
-
-class PhongBan extends Component {
+// --------container component--------
+class BangLuong extends Component {
   render() {
     return (
       <div>
         <div className="container mt-5">
           <h3 className="tieuDeTrang">Bảng Lương</h3>
-          <hr/>
+          <hr />
           <div className="row">
             {STAFFS.map((element, index) => {
               return (
-                <HienThiPhongBan
+                <HienThiBangLuong
                   name={element.name}
                   id={element.id}
                   overTime={element.overTime}
@@ -39,4 +49,4 @@ class PhongBan extends Component {
   }
 }
 
-export default PhongBan;
+export default BangLuong;
