@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 function Footer(props) {
     return(
     <div className="footer">
-        <div className="container">
+        <div className="container-fluid">
             <div className="row justify-content-center">             
                 <div className="col-4 offset-1 col-sm-2">
                     <h5>Links</h5>
                     <ul className="list-unstyled">
             
-                    <li><a to='/home'>Nhân Viên</a></li>
+                    <li><Link to='/'>Nhân Viên</Link></li>
                         
-                        <li><a to='/menu'>Phòng Ban</a></li>
-                        <li><a to='/contactus'>Bảng Lương</a></li>
+                        <li><Link to='/phongban'>Phòng Ban</Link></li>
+                        <li><Link to='/bangluong'>Bảng Lương</Link></li>
                     </ul>
                 </div>
                 <div className="col-7 col-sm-5">
