@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-
+import React, { Component, useLayoutEffect, useState } from "react";
 import {
   Card,
   CardImg,
@@ -8,53 +7,127 @@ import {
   CardTitle,
   Breadcrumb,
   BreadcrumbItem,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  Form,
+  FormGroup,
+  Input,
+  Button,
+  Label,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import dateFormat, { masks } from "dateformat";
 
 function RenderDish({ dish }) {
   return (
-    <div className="col-12 col-md-5 m-1">
-        <Card>
-            <CardImg width="100%" src={dish.image} alt ={dish.name}/>
-            <CardBody>
-                <CardTitle>{dish.name}</CardTitle>
-                <CardText>{dish.description}</CardText>
-            </CardBody>
-        </Card>
+    <Card>
+      <CardImg top src={dish.image} alt={dish.description} />
+      <CardBody>
+        <CardTitle>{dish.name}</CardTitle>
+        <CardText>{dish.description}</CardText>
+      </CardBody>
+    </Card>
+  );
+}
+
+function RenderComments({ comments, addComment, dishId }) {
+  return (
+    <div>
+      <h4>Comments</h4>
+      {comments.map((comment) => (
+        <ul className="list-unstyled">
+          <li>{comment.comment}</li>
+          <li>
+            --{comment.author}, {dateFormat(comment.date, "mmm dd, yyyy")}
+          </li>
+        </ul>
+      ))}
+      <CommentForm dishId={dishId} addComment={addComment} />
     </div>
   );
 }
 
-function RenderComments({ comments }) {
-  if (comments != null) {
-    const commentListItem = comments.map((comment) => {
-      return (
-        <li key={comments.id}>
-          <p>{comment.comment}</p>
-          <p>
-            -- {comment.author},
-            {new Intl.DateTimeFormat("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "2-digit",
-            }).format(new Date(Date.parse(comment.date)))}
-          </p>
-        </li>
-      );
-    });
-    return (
-      <div className="col-12 col-md-5 m-1 ">
-        <h4>Comments</h4>
-        <ul className="list-unstyled">{commentListItem}</ul>
-      </div>
+function CommentForm(props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [newComment, setNewComment] = useState({
+    rating: "",
+    name: "",
+    comment: "",
+  });
+
+  const toggleModal = () => setIsOpen(!isOpen);
+
+  const handleInputChange = (e) => {
+    const comment = { ...newComment };
+    const target = e.target;
+    comment[target.name] = target.value;
+    setNewComment(comment);
+  };
+
+  const handleSubmit = (e) => {
+    props.addComment(
+      props.dishId,
+      newComment.rating,
+      newComment.name,
+      newComment.comment
     );
-  } else {
-    return <div></div>;
-  }
+    e.preventDefault();
+  };
+
+  return (
+    <React.Fragment>
+      <Button outline onClick={toggleModal}>
+        Submit Comment
+      </Button>
+      <Modal isOpen={isOpen} toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>Hello</ModalHeader>
+        <ModalBody>
+          <Form onSubmit={handleSubmit}>
+            <FormGroup>
+              <Label htmlFor="rating">Rating</Label>
+              <Input
+                type="select"
+                name="rating"
+                id="rating"
+                onChange={handleInputChange}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </Input>
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="name">Your Name</Label>
+              <Input
+                name="name"
+                id="name"
+                placeholder="Your Name"
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="comment">Comment</Label>
+              <Input
+                type="textarea"
+                id="comment"
+                name="comment"
+                onChange={handleInputChange}
+              ></Input>
+            </FormGroup>
+            <Button type="submit" color="primary">
+              Submit
+            </Button>
+          </Form>
+        </ModalBody>
+      </Modal>
+    </React.Fragment>
+  );
 }
 
 const DishDetail = (props) => {
-  if (props.dish != null)
+  if (props.dish) {
     return (
       <div className="container">
         <div className="row">
@@ -64,15 +137,28 @@ const DishDetail = (props) => {
             </BreadcrumbItem>
             <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
           </Breadcrumb>
-         
+          <div className="col-12">
+            <h3>{props.dish.name}</h3>
+            <hr />
+          </div>
         </div>
         <div className="row">
-          <RenderDish dish={props.dish} />
-          <RenderComments comments={props.comments} />
+          <div className="col-12 col-md-5 m-1">
+            <RenderDish dish={props.dish} />
+          </div>
+          <div className="col-12 col-md-5 m-1">
+            <RenderComments
+              comments={props.comments}
+              addComment={props.addComment}
+              dishId={props.dish.id}
+            />
+          </div>
         </div>
       </div>
     );
-  else return <div></div>;
+  } else {
+    return <div></div>;
+  }
 };
 
 export default DishDetail;

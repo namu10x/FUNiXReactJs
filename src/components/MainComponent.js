@@ -1,37 +1,36 @@
-import React, { Component } from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
-import Menu from "./MenuComponent";
-import DishDetail from "./DishdetailComponent";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
-import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import Home from "./HomeComponent";
+import Menu from "./MenuComponent";
 import Contact from "./ContactComponent";
-import About from "./AboutComponent";
+import DishDetail from "./DishdetailComponent";
+import React, { Component } from "react";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { addComment } from "../redux/ActionCreators";
 
-const mapStateToProps = state => {
+const mapStatetoProps = (state) => {
   return {
     dishes: state.dishes,
     comments: state.comments,
+    promotions: state.promotions,
     leaders: state.leaders,
-    promotions: state.promotions
-  }
-}
+  };
+};
+
+const mapDispatchtoProps = (dispatch) => ({
+  addComment: (dishId, rating, author, comment) =>
+    dispatch(addComment(dishId, rating, author, comment)),
+});
+
 class Main extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-      // selectedDish: null,
-    // };
   }
 
-  // onDishSelect(dishId) {
-  //   this.setState({ selectedDish: dishId });
-  // }
-  
   render() {
-    const HomePage = () => {
+  
+    const HomPage = () => {
       return (
         <Home
           dish={this.props.dishes.filter((dish) => dish.featured)[0]}
@@ -40,6 +39,8 @@ class Main extends Component {
         />
       );
     };
+
+ 
     const DishWithId = ({ match }) => {
       return (
         <DishDetail
@@ -51,14 +52,17 @@ class Main extends Component {
           comments={this.props.comments.filter(
             (comment) => comment.dishId === parseInt(match.params.dishId, 10)
           )}
+          addComment={this.props.addComment}
         />
       );
     };
+
     return (
       <div>
+        {console.log(this)}
         <Header />
         <Switch>
-          <Route path="/home" component={HomePage} />
+          <Route path="/home" component={HomPage} />
           <Route
             exact
             path="/menu"
@@ -66,10 +70,6 @@ class Main extends Component {
           />
           <Route path="/menu/:dishId" component={DishWithId} />
           <Route exact path="/contactus" component={Contact} />
-          <Route
-            path="/aboutus"
-            component={() => <About leaders={this.props.leaders} />}
-          />
           <Redirect to="/home" />
         </Switch>
         <Footer />
@@ -78,4 +78,4 @@ class Main extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStatetoProps, mapDispatchtoProps)(Main));
