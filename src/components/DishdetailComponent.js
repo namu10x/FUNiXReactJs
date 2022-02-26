@@ -19,38 +19,50 @@ import {
 import { Link } from "react-router-dom";
 import dateFormat, { masks } from "dateformat";
 import { Loading } from "./LoadingComponent";
-import { baseUrl } from '../shared/baseUrl';
-// const baseUrl =  'http://localhost:3001/';
+import { baseUrl } from "../shared/baseUrl";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 function RenderDish({ dish }) {
   return (
-    <Card>
-      <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-      <CardBody>
-        <CardTitle>{dish.name}</CardTitle>
-        <CardText>{dish.description}</CardText>
-      </CardBody>
-    </Card>
+    <FadeTransform
+      in
+      transformProps={{
+        exitTransform: "scale(0.5) translateY(-50%)",
+      }}
+    >
+      <Card>
+        <CardImg top src={baseUrl + dish.image} alt={dish.description} />
+        <CardBody>
+          <CardTitle>{dish.name}</CardTitle>
+          <CardText>{dish.description}</CardText>
+        </CardBody>
+      </Card>
+    </FadeTransform>
   );
 }
 
-function RenderComments({ comments, addComment, dishId }) {
+function RenderComments({ comments, postComment, dishId }) {
   return (
     <div>
       <h4>Comments</h4>
-      {comments.map((comment) => (
-        <ul className="list-unstyled">
-          <li>{comment.comment}</li>
-          <li>
-            --{comment.author}, {dateFormat(comment.date, "mmm dd, yyyy")}
-          </li>
-        </ul>
-      ))}
-      <CommentForm dishId={dishId} addComment={addComment} />
+      <Stagger in>
+        {comments.map((comment) => (
+          <Fade in>
+            <ul className="list-unstyled">
+              <li>{comment.comment}</li>
+              <li>
+                --{comment.author}, {dateFormat(comment.date, "mmm dd, yyyy")}
+              </li>
+            </ul>
+          </Fade>
+        ))}
+      </Stagger>
+      <CommentForm dishId={dishId} postComment={postComment} />
     </div>
   );
 }
 
+// Container Component
 function CommentForm(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [newComment, setNewComment] = useState({
@@ -69,13 +81,14 @@ function CommentForm(props) {
   };
 
   const handleSubmit = (e) => {
-    props.addComment(
+    props.postComment(
       props.dishId,
       newComment.rating,
       newComment.name,
       newComment.comment
     );
     e.preventDefault();
+    // console.log(newComment);
   };
 
   return (
@@ -150,6 +163,7 @@ const DishDetail = (props) => {
   else if (props.dish != null) {
     return (
       <div className="container">
+        {/* Breadcrumb Section */}
         <div className="row">
           <Breadcrumb>
             <BreadcrumbItem>
@@ -169,7 +183,7 @@ const DishDetail = (props) => {
           <div className="col-12 col-md-5 m-1">
             <RenderComments
               comments={props.comments}
-              addComment={props.addComment}
+              postComment={props.postComment}
               dishId={props.dish.id}
             />
           </div>
