@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,  withRouter,
 } from "react-router-dom";
@@ -8,7 +8,6 @@ import {
   BreadcrumbItem
 } from "reactstrap";
 import dateFormat from "dateformat";
-import { STAFFS } from "../shared/staffs";
 // --------presentation component--------
 function HienThiAnh(props) {
   return (
@@ -50,35 +49,36 @@ function HienThiThongTin(props) {
   );
 }
 // --------container component--------
-class NhanVienChiTiet extends Component {
-  render() {
-    let a = STAFFS[parseInt(this.props.match.params.id)];
-    return (
-      <div className="container mt-5">
-           <h3 className="tieuDeTrang">Nhân Viên Chi Tiết</h3>
-        <Breadcrumb tag="nav" listTag="div">
-          <BreadcrumbItem>
-            <Link to="/nhanvien">Nhân Viên</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem>{a.name}</BreadcrumbItem>
-        </Breadcrumb>
-       
-        <hr />
 
-        <div className="row card-view">
-          <HienThiAnh image={a.image} name={a.name} />
-          <HienThiThongTin
-            name={a.name}
-            doB={a.doB}
-            startDate={a.startDate}
-            annualLeave={a.annualLeave}
-            overTime={a.overTime}
-            department={a.department}
-          />
-        </div>
+ function NhanVienChiTiet(props) {
+  //  let a = props.staffList;
+  let a = props.staffList[parseInt(props.match.params.id)];
+  // console.log(a);
+  return (
+    <div className="container mt-5">
+         <h3 className="tieuDeTrang">Nhân Viên Chi Tiết</h3>
+      <Breadcrumb tag="nav" listTag="div">
+        <BreadcrumbItem>
+          <Link to="/nhanvien">Nhân Viên</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>{a.name}</BreadcrumbItem>
+      </Breadcrumb>
+     
+      <hr />
+
+      <div className="row card-view">
+        <HienThiAnh image={a.image} name={a.name} />
+        <HienThiThongTin
+          name={a.name}
+          doB={a.doB}
+          startDate={a.startDate}
+          annualLeave={a.annualLeave}
+          overTime={a.overTime}
+          department={a.department}
+        />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default withRouter(NhanVienChiTiet);

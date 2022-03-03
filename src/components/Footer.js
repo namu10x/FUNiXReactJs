@@ -9,7 +9,7 @@ function Footer(props) {
                     <h5>Links</h5>
                     <ul className="list-unstyled">
             
-                    <li><Link to='/'>Nhân Viên</Link></li>
+                    <li><Link to='/nhanvien'>Nhân Viên</Link></li>
                         
                         <li><Link to='/phongban'>Phòng Ban</Link></li>
                         <li><Link to='/bangluong'>Bảng Lương</Link></li>

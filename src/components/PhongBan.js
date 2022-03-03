@@ -25,6 +25,7 @@ class PhongBan extends Component {
             {DEPARTMENTS.map((element, index) => {
               return (
                 <HienThiPhongBan
+                key={index}
                   name={element.name}
                   numberOfStaff={element.numberOfStaff}
                 />

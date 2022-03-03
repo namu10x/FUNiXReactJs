@@ -1,37 +1,48 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BangLuong from "../components/BangLuong";
-import Home from "../components/Home";
-import NhanVienChiTiet from "../components/NhanVienChiTiet";
+import NhanVienChiTiet from "../components/TrangNhanVien/NhanVienChiTiet";
 import PhongBan from "../components/PhongBan";
+import TrangNhanVien from "../components/TrangNhanVien/TrangNhanVien";
 import { STAFFS } from "../shared/staffs";
+import { DEPARTMENTS } from "../shared/staffs";
 // Component rieng de dieu huong router
-class DieuHuongURL extends Component {
-  render() {
-    return (
-      <div>
-        <hr />
-        <Switch>
-          <Route exact path="/nhanvien">
-            <Home staffs={STAFFS} />
-          </Route>
-          <Route exact path="/">
-            <Home staffs={STAFFS} />
-          </Route>
-          <Route exact path="/nhanvienchitiet/:id">
-            <NhanVienChiTiet />
-          </Route>
-          <Route exact path="/phongban">
-            <PhongBan />
-          </Route>
-          <Route exact path="/bangluong">
-            <BangLuong />
-          </Route>
-        </Switch>
-        <hr />
-      </div>
-    );
+
+
+ function DieuHuongURL() {
+  const [staffList, setStaffList] = useState(STAFFS);
+  const [departmentList, setDepartmentList] = useState(DEPARTMENTS);
+  function recieveStaffList(staff){
+    setStaffList(staff);
   }
+  function recieveDepartmentList(department){
+    console.log("da lien ket tu dieu huong den nhan vien");
+    setDepartmentList(department);
+  }
+  // console.log(departmentList);
+  return (
+    <div>
+      <hr />
+      <Switch>
+        <Route exact path="/nhanvien">
+          <TrangNhanVien staffs={staffList} departments={departmentList} recieveStaffList ={(staffList)=>recieveStaffList(staffList)} recieveDepartmentList={(departmentList)=>recieveDepartmentList(departmentList)} />
+        </Route>
+        <Route exact path="/">
+        <TrangNhanVien staffs={staffList} departments={departmentList} recieveStaffList ={(staffList)=>recieveStaffList(staffList)} recieveDepartmentList={(departmentList)=>recieveDepartmentList(departmentList)}/>
+        </Route>
+        <Route exact path="/nhanvienchitiet/:id">
+          <NhanVienChiTiet staffList={staffList}  />
+        </Route>
+        <Route exact path="/phongban">
+          <PhongBan departmentList={departmentList}  />
+        </Route>
+        <Route exact path="/bangluong">
+          <BangLuong staffs={staffList}  />
+        </Route>
+      </Switch>
+      <hr />
+    </div>
+  );
 }
 
 export default DieuHuongURL;

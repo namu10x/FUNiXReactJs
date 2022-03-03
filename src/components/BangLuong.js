@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { STAFFS } from "../shared/staffs";
 // --------Salary cal--------
 function TinhLuong(salaryScale, overTime) {
@@ -24,17 +24,19 @@ function HienThiBangLuong(props) {
   );
 }
 // --------container component--------
-class BangLuong extends Component {
-  render() {
-    return (
-      <div>
+
+
+function BangLuong(props) {
+  return (
+    <div>
         <div className="container mt-5">
           <h3 className="tieuDeTrang">Bảng Lương</h3>
           <hr />
           <div className="row">
-            {STAFFS.map((element, index) => {
+            {props.staffs.map((element, index) => {
               return (
                 <HienThiBangLuong
+                key={index}
                   name={element.name}
                   id={element.id}
                   overTime={element.overTime}
@@ -45,8 +47,9 @@ class BangLuong extends Component {
           </div>
         </div>
       </div>
-    );
-  }
+  )
 }
+
+
 
 export default BangLuong;
