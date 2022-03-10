@@ -17,7 +17,7 @@ function AddUser(props) {
   let [isDisabled, setIsDisable] = useState(true);
 // console.log(departmentList);
   function SendAddedUser() {
-    if (isDisabled == true) {
+    if (isDisabled === true) {
       alert("Yêu cầu nhập đầy đủ thông tin nhân viên mới!");
     } else {
       newStaff.id=staffList.length;
@@ -38,7 +38,7 @@ function AddUser(props) {
     if (name === "name") {
       console.log("name la "+value);
       console.log("do dai " +value.length);
-      if ( value==""|| value.length < 4 || value.length > 30 ) {
+      if ( value===""|| value.length < 4 || value.length > 30 ) {
         setIsDisable(true);
         setNameError("Yêu cầu nhập nhiều hơn 3 ký tự và ít hơn 30 ký tự");
       } else {
@@ -193,12 +193,13 @@ function AddUser(props) {
                   <label className="col-sm-4 col-form-label">Phòng ban</label>
                   <div className="col-sm-8">
                     <select
-                      class="form-select form-control"
+                      className="form-select form-control"
                       aria-label="Default select example"
                       name="department"
+                      defaultValue={''}
                       onBlur={(event) => isChange(event)}
                     >
-                      <option value="" selected>
+                      <option value="" disabled >
                         Chọn phòng ban
                       </option>
                       <option value="0">Sale</option>

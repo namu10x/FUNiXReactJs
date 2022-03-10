@@ -8,7 +8,7 @@ function RenderBreadcrumb() {
   return (
     <div>
       <h3 className="tieuDeTrang">Trang Nhân Viên</h3>
-      <Breadcrumb tag="nav" listTag="div">
+      <Breadcrumb tag="nav" listtag="div">
         <BreadcrumbItem>
           <Link to="/nhanvien">Nhân Viên</Link>
         </BreadcrumbItem>
@@ -19,13 +19,16 @@ function RenderBreadcrumb() {
 
 function TrangNhanVien(props) {
   const [staffList, setStaffList] = useState(props.staffs);
-
+const [filteredStaff,setFilteredStaff]=useState(props.staffs);
   function getNewStaffList(staff) {
     setStaffList(staff);
+    setFilteredStaff(staff);
     console.log("da nhan lien ket tu ham add user");
+    //gui du lieu cho dieu huong
     props.recieveStaffList(staff);
   }
   function getNewDepartmentList (department) { 
+    //gui du lieu cho dieu huong
       props.recieveDepartmentList(department);
    }
   function RenderSearch() {
@@ -58,7 +61,7 @@ function TrangNhanVien(props) {
         staff.name.toLowerCase().includes(text.toString().toLowerCase())
       );
       //   console.log(filteredStaff);
-      setStaffList(filteredStaff);
+      setFilteredStaff(filteredStaff);
     }
   }
   function RenderNhanVien(props) {
@@ -75,8 +78,8 @@ function TrangNhanVien(props) {
       </div>
     );
   }
-console.log(props.departments);
-  const staff = staffList.map((nhanVien) => {
+// console.log(props.departments);
+  const staff = filteredStaff.map((nhanVien) => {
     return (
       <RenderNhanVien
         key={nhanVien.id}

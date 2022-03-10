@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  BrowserRouter as Router,  withRouter,
+withRouter
 } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
@@ -52,7 +52,7 @@ function HienThiThongTin(props) {
 
  function NhanVienChiTiet(props) {
   //  let a = props.staffList;
-  let a = props.staffList[parseInt(props.match.params.id)];
+  let a = props.staffList[parseInt(props.match.params.id,10)];
   // console.log(a);
   return (
     <div className="container mt-5">

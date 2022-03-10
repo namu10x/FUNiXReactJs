@@ -28,13 +28,13 @@ class Header extends Component {
                         
                             <Nav navbar>
                             <NavItem>
-                                <NavLink className="nav-link menu" activeClassName='active' to='/nhanvien'> <i class="fa fa-users" aria-hidden="true"></i> Nhân Viên</NavLink>
+                                <NavLink className="nav-link menu" activeClassName='active' to='/nhanvien'> <i className="fa fa-users" aria-hidden="true"></i> Nhân Viên</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink className="nav-link menu" activeClassName='active' to='/phongban'><i class="fa fa-id-card-o" aria-hidden="true"></i> Phòng Ban</NavLink>
+                                <NavLink className="nav-link menu" activeClassName='active' to='/phongban'><i className="fa fa-id-card-o" aria-hidden="true"></i> Phòng Ban</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink className="nav-link menu" activeClassName='active' to='/bangluong'><i class="fa fa-money" aria-hidden="true"></i> Bảng Lương</NavLink>
+                                <NavLink className="nav-link menu" activeClassName='active' to='/bangluong'><i className="fa fa-money" aria-hidden="true"></i> Bảng Lương</NavLink>
                             </NavItem>
                             </Nav>
                         </Collapse>

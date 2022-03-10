@@ -101,6 +101,7 @@ a:hover{
     position: relative;
     box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
     transition: 0.4s;
+    height:200px;
 }
 .profile-img{
     border-radius: 50%;

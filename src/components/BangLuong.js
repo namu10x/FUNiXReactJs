@@ -1,5 +1,4 @@
 import React from "react";
-import { STAFFS } from "../shared/staffs";
 // --------Salary cal--------
 function TinhLuong(salaryScale, overTime) {
   const basicSalary = 3000000;
