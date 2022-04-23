@@ -36,6 +36,9 @@ class Header extends Component {
                             <NavItem>
                                 <NavLink className="nav-link menu" activeClassName='active' to='/bangluong'><i className="fa fa-money" aria-hidden="true"></i> Bảng Lương</NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink className="nav-link menu" activeClassName='active' to='/capnhatthongtin'><i className="fa fa-edit"></i> Cập Nhật Thông Tin</NavLink>
+                            </NavItem>
                             </Nav>
                         </Collapse>
                     </div>

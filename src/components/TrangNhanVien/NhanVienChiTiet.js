@@ -8,6 +8,23 @@ import {
   BreadcrumbItem
 } from "reactstrap";
 import dateFormat from "dateformat";
+function tenPhongBan(maPhongBan) {
+  switch (maPhongBan) {
+    case "Dept01":
+      return "Sale";
+    case "Dept02":
+      return "HR";
+    case "Dept03":
+      return "Marketing";
+    case "Dept04":
+      return "IT";
+    case "Dept05":
+      return "Finance";
+
+    default:
+      return maPhongBan;
+  }
+}
 // --------presentation component--------
 function HienThiAnh(props) {
   return (
@@ -17,6 +34,7 @@ function HienThiAnh(props) {
   );
 }
 function HienThiThongTin(props) {
+  // console.log("chitiet: "+ JSON.stringify(props));
   return (
     <div className="col-12 col-md-8 col-lg-9">
         <ul>
@@ -34,7 +52,7 @@ function HienThiThongTin(props) {
             </li>
             <li>
                 <span className="title">Phòng ban: </span>
-                <span className="text">{props.department.name}</span>
+                <span className="text">{tenPhongBan(props.department)}</span>
             </li>
             <li>
                 <span className="title">Số ngày nghỉ còn lại:</span>
@@ -52,8 +70,21 @@ function HienThiThongTin(props) {
 
  function NhanVienChiTiet(props) {
   //  let a = props.staffList;
-  let a = props.staffList[parseInt(props.match.params.id,10)];
-  // console.log(a);
+  // console.log("chitiet: "+ JSON.stringify(props));
+  let a = [parseInt(props.match.params.id,10)];
+  console.log(props.staffs);
+  const selectedStaff = props.staffs.filter((nhanVien) => nhanVien.id==a);
+  const staff=selectedStaff[0];
+  // let staff = props.staffs[a];
+  // console.log("nvct "+JSON.stringify(staff));
+  // console.log("nvct props"+JSON.stringify(props.staffs));
+  // const department=props.departments.departments;
+
+  // const nameOfDepartment=department.map((phongban)=>{
+  //   if(phongban.id===staff.departmentId) return phongban.name;
+    
+  // });
+  // console.log(nameOfDepartment);
   return (
     <div className="container mt-5">
          <h3 className="tieuDeTrang">Nhân Viên Chi Tiết</h3>
@@ -61,20 +92,20 @@ function HienThiThongTin(props) {
         <BreadcrumbItem>
           <Link to="/nhanvien">Nhân Viên</Link>
         </BreadcrumbItem>
-        <BreadcrumbItem>{a.name}</BreadcrumbItem>
+        <BreadcrumbItem>{staff.name}</BreadcrumbItem>
       </Breadcrumb>
      
       <hr />
 
-      <div className="row card-view">
-        <HienThiAnh image={a.image} name={a.name} />
+      <div className="row card-view-without-link">
+        <HienThiAnh image={staff.image} name={staff.name} />
         <HienThiThongTin
-          name={a.name}
-          doB={a.doB}
-          startDate={a.startDate}
-          annualLeave={a.annualLeave}
-          overTime={a.overTime}
-          department={a.department}
+          name={staff.name}
+          doB={staff.doB}
+          startDate={staff.startDate}
+          annualLeave={staff.annualLeave}
+          overTime={staff.overTime}
+          department={staff.departmentId}
         />
       </div>
     </div>

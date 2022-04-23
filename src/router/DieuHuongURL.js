@@ -1,22 +1,34 @@
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import {  Switch, Route } from "react-router-dom";
-import BangLuong from "../components/BangLuong";
+import BangLuong from "../components/TrangBangLuong/BangLuong";
 import NhanVienChiTiet from "../components/TrangNhanVien/NhanVienChiTiet";
-import PhongBan from "../components/PhongBan";
+import PhongBan from "../components/TrangPhongBan/PhongBan";
 import TrangNhanVien from "../components/TrangNhanVien/TrangNhanVien";
 // import { STAFFS } from "../shared/staffs";
 // import { DEPARTMENTS } from "../shared/staffs";
-import { connect } from "react-redux";
+import { connect,useSelector, useDispatch } from "react-redux";
+import { fetchStaffs } from "../redux/ActionCreators";
 // Component rieng de dieu huong router
-
+const mapStateToProps = (state, ownProps) => {
+  return {
+    staffList: state.staffs,
+    departmentList:state.departments
+  }
+}
 
  function DieuHuongURL(props) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch((dispatch) => {
+      dispatch(fetchStaffs("staffList"));
+      // dispatch(fetchData("departments"));
+      // dispatch(fetchData("staffsSalary"));
+    });
+  }, []);
   const [staffList, setStaffList] = useState(props.staffList);
   const [departmentList, setDepartmentList] = useState(props.departmentList);
   function recieveStaffList(staff){
     setStaffList(staff);
-  
-
   }
   function recieveDepartmentList(department){
     console.log("da lien ket tu dieu huong den nhan vien");
@@ -41,19 +53,14 @@ import { connect } from "react-redux";
         </Route>
         <Route exact path="/bangluong">
           <BangLuong staffs={staffList}  />
-        </Route>
+        </Route>   
       </Switch>
       <hr />
     </div>
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    staffList: state.staffList,
-    departmentList:state.departmentList
-  }
-}
+
 // const mapDispatchToProps = (dispatch, ownProps) => {
 //   return {
 //     addDataStore: (getItem) => {
